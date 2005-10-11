@@ -1,0 +1,9 @@
+--- #YAML:1.0
+name: WWW-LiveDepartureBoards
+version: 0.01
+author:
+  - Greg McCarroll <greg@mccarroll.org.uk>
+abstract: present an OO interface to the National Rail Live Departure Boards (LDB's)
+Website (http://www.livedepartureboards.co.uk).
+license: perl
+generated_by: Module::Build version 0.2611, without YAML.pm
