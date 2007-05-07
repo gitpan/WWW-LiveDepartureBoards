@@ -25,7 +25,7 @@ use warnings;
 use LWP;
 use DateTime;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use constant {
     BASE_DEPARTURE_URL => 'http://www.livedepartureboards.co.uk/ldb/sumdep.aspx?T=',
@@ -141,6 +141,16 @@ sub _lookup_either {
     return @details;
 }
 
+sub _lookup_destination {
+	my $self        = shift;
+	my $destination = shift;
+	my $base_url    = shift;
+ 	
+	my @details = $self->_content_to_details(_get_content($base_url.$self->{station_code}.'&S='.$destination),$destination);
+
+    return @details;
+}
+
 =head2 new({station_code => 'XXX'})
 
 Takes a 3 letter station code such as PNE (Penge East) and returns the
@@ -205,14 +215,40 @@ sub departures {
     return $self->_lookup_either($filter_list,BASE_DEPARTURE_URL,'destination');
 }
 
+=head2 destination({station_code => 'XXX'})
+
+Returns an array of hashes with departure details as follows,
+
+    station_code - the final destination name of the train
+    time         - time in the form of 'hh:mm'
+    datetime     - a DateTime object that has been tied to the best guess of
+                   what day the train arrives/departs on
+    status       - the status of the train
+
+=cut
+
+sub destination {
+	my $self        = shift;
+	my $destination = shift;
+
+    if (ref $destination eq 'HASH') {
+        $destination = $destination->{station_code};
+    }
+    $destination = uc($destination);
+
+    die "You MUST provide a destination station.\n" unless $destination;
+
+	return $self->_lookup_destination($destination, BASE_DEPARTURE_URL, 'destination');
+}
 
 =head1 AUTHOR
 
 Greg McCarroll <greg@mccarroll.org.uk>
+Adam Trickett <adam.trickett@iredale.net>
 
 =head1 COPYRIGHT
 
-Copyright 2005 Greg McCarroll. All Rights Reserved.
+Copyright 2005-2007 Greg McCarroll. All Rights Reserved.
 
 This program is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
