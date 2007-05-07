@@ -2,13 +2,13 @@
 
 =head1 NAME
 
-WWW:LiveDepartureBoards - present an OO interface to the National Rail Live Departure Boards (LDB's)
+WWW:LiveDepartureBoards - presents an OO interface to the National Rail Live Departure Boards (LDB's)
 Website (http://www.livedepartureboards.co.uk).
 
 =head1 DESCRIPTION
 
 Queries and then screenscrapes the LDB's website, making a guess as to what day
-the given arrival or departure time is on and constructing a DateTime object has
+the given arrival or departure time is on and constructing a DateTime object as
 part of the details returned. Can also filter by the stations you are interested
 in.
 
@@ -25,7 +25,7 @@ use warnings;
 use LWP;
 use DateTime;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use constant {
     BASE_DEPARTURE_URL => 'http://www.livedepartureboards.co.uk/ldb/sumdep.aspx?T=',

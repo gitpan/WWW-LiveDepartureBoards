@@ -9,7 +9,7 @@ use Test::More tests=>8;
 
 BEGIN { use_ok( 'WWW::LiveDepartureBoards' )}
 
-print STDERR "\n >>>\n WARNING!\n The following tests require a live Internet connection.\n >>>\n";
+print STDERR "\n >>>\n WARNING!\n The following tests require a live Internet connection.\nThey may also fail if ran when trains are not running.\n >>>\n";
 
 my $farringdon = WWW::LiveDepartureBoards->new({station_code => 'ZFD'});
 
